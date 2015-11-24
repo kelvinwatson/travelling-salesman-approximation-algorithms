@@ -1,10 +1,8 @@
 #utility functions
-import re, math
-import csv
+import re, math, csv, os
 
 #computes distances between all vertices and writes to file
 def compute_all_distances(cities):
-    file_name = "allDistances.csv"
     all_distances = []
     num_cities = len(cities)
     print "len = " + str(len(cities))
@@ -13,13 +11,32 @@ def compute_all_distances(cities):
     dist = 0
     for i in range(num_cities-1):
         for j in range(num_cities-1):
-            delta_x = cities[i+1][1] - cities[i][1]
-            delta_y = cities[j+1][2] - cities[j][2]
+            delta_x = cities[j][1] - cities[i][1]
+            delta_y = cities[j][2] - cities[i][2]
             dist = math.sqrt(math.pow(delta_x,2) + math.pow(delta_y,2))
-            row = "dist from "+str(i)+" to "+str(j)
-            write_row_to_csv(file_name, [row, str(dist)])
-            all_distances.append(["dist from "+str(i)+" to "+str(j), dist])
+            #write_row_to_csv(file_name, [i,j,dist])
+            all_distances.append([i,j,dist])
+    #write_row_to_csv(file_name, [i,j,dist])
+    write_distances_to_csv("allDistances.csv", all_distances)
     return all_distances
+
+def write_distances_to_csv(file,all_distances):
+    try:
+        os.remove(file)
+    except OSError:
+        pass
+    with open(file, 'ab') as csvfile:
+        for row in all_distances:
+            statswriter = csv.writer(csvfile)
+            statswriter.writerow(row)
+
+#utility
+def write_row_to_csv(file_name,row):
+    write_mode = 'ab'
+    with open(file_name, write_mode) as csvfile:
+        statswriter = csv.writer(csvfile)
+        statswriter.writerow(row)
+
 
 def count_cities(fname):
     with open(fname) as f:
@@ -46,11 +63,6 @@ def read_vertices(filename,num_cities):
     f.close()
     return cities
 
-#utility
-def write_row_to_csv(file_name,row):
-    write_mode = 'ab'
-    with open(file_name, write_mode) as csvfile:
-        statswriter = csv.writer(csvfile)
-        statswriter.writerow(row)
+
 
 #TESTS
