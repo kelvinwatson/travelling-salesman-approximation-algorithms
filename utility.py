@@ -1,6 +1,24 @@
 #utility functions
 import re, math, csv, os
 
+class Vertex:
+    adjacent_vertices = [] #list of tuples [(u,distance to u),(v,distance to v)...]
+    visited = False
+    predecessor = 0
+    def __init__(self):
+        self.adjacent_vertices = []
+        self.visited = False
+        predecessor = 0
+
+def create_adjacency_list(distance_matrix, len):
+    i = 0
+    while (i < len):
+        vertex = distance_matrix[i][0]
+        v = Vertex()
+        while distance_matrix[i][0] == vertex:
+            v.adjacent_vertices.append((distance_matrix[i][1],(distance_matrix[i][2])))
+            i+=1
+
 #computes distances between all vertices and writes to file
 def compute_all_distances(cities):
     all_distances = []
