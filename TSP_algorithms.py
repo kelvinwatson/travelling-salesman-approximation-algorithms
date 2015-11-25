@@ -5,6 +5,7 @@ import utility
 def tsp_nearest_neighbor(adj_list, source_vertex):
     #track visited and unvisited vertices
     track_visited_vertices = []
+    path = []
     i = 0
     while i < len(adj_list):
         track_visited_vertices.append(False)
@@ -12,26 +13,43 @@ def tsp_nearest_neighbor(adj_list, source_vertex):
     all_visited_flag = False
 
     #assign the source vertex as visited as we are starting there
-    adj_list[source_vertex].visited = True
+    track_visited_vertices[source_vertex] = adj_list[source_vertex].visited = True
+    path.append(source_vertex)
+
+    print path
+    print track_visited_vertices
 
     current_vertex = source_vertex
     while all_visited_flag is False:
+
         print "TRACE: "+str(adj_list[current_vertex].adjacent_vertices)
-        nearest_neighbor = find_min_destination(adj_list[current_vertex].adjacent_vertices)
-        current_vertex = nearest_neighbor #change current vertex to nearest neighbor
-        adj_list[nearest_neighbor].visited = True #mark the neighbor as visited
+        print all_visited_flag
+        nearest_neighbor = find_min_destination(adj_list[current_vertex].adjacent_vertices, adj_list) #find nearest neighbor
+        print "nn="+str(nearest_neighbor)
+        path.append(nearest_neighbor)
+        print "path="+str(path)
+        current_vertex = nearest_neighbor #current vertex is now the nearest identified neighbor
+        track_visited_vertices[nearest_neighbor] = adj_list[nearest_neighbor].visited = True #mark the neighbor as visited
         adj_list[nearest_neighbor].predecessor = current_vertex
+        print track_visited_vertices
+        print all_visited_flag
+
         all_visited_flag = check_if_all_visited(track_visited_vertices)
+
+    print "done"
+    return path
 
 def check_if_all_visited(track):
     for x in track:
-        if x is True: return True
+        if x is False: return False
+    return True
 
-def find_min_destination(adj_u):
+def find_min_destination(adj_u,adj_list):
     curr_min = float("inf")
-    for x in adj_u:
-        if x[1]<curr_min: #x[1] accesses the distance in the tuple
-            curr_min=x[0] #x[0] accesses the vertex ID in the tuple
+    for v in adj_u:
+        if adj_list[v[0]].visited is False: #if not visited
+            if v[1]<curr_min: #x[1] accesses the distance in the tuple
+                curr_min=v[0] #x[0] accesses the vertex ID in the tuple
     return curr_min
 
 
@@ -59,4 +77,4 @@ print "adjacency_list: "
 for vert in adjacency_list:
     print vert.adjacent_vertices
 
-tsp_nearest_neighbor(adjacency_list,0)
+print tsp_nearest_neighbor(adjacency_list,0)

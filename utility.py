@@ -14,6 +14,7 @@ class Vertex:
 
 def create_adjacency_list(distance_matrix):
     i = 0
+    print "TRACE: distance_matrix="+str(distance_matrix)
     adjacency_list= []
     while (i < len(distance_matrix)):
         vertexID = distance_matrix[i][0]
@@ -32,18 +33,17 @@ def create_adjacency_list(distance_matrix):
 #computes distances between all vertices and writes to file
 def compute_all_distances(cities):
     all_distances = []
+    print "TRACE: cities="+str(cities)
     num_cities = len(cities)
     x=0
     y=0
     dist = 0
-    for i in range(num_cities-1):
-        for j in range(num_cities-1):
+    for i in range(num_cities):
+        for j in range(num_cities):
             delta_x = cities[j][1] - cities[i][1]
             delta_y = cities[j][2] - cities[i][2]
             dist = math.sqrt(math.pow(delta_x,2) + math.pow(delta_y,2))
-            #write_row_to_csv(file_name, [i,j,dist])
             all_distances.append([i,j,dist])
-    #write_row_to_csv(file_name, [i,j,dist])
     write_distances_to_csv("allDistances.csv", all_distances)
     return all_distances
 
