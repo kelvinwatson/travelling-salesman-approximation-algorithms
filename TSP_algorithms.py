@@ -27,10 +27,10 @@ all_distances = utility.compute_all_distances(cities)
 #TESTING A SMALL EXAMPLE
 filename = "tsp_example_4.txt"
 num_cities = utility.count_cities(filename)
-print "number of cities in " + filename + "=" + str(num_cities)
+print "number of cities(vertices) in " + filename + "=" + str(num_cities)
 
 cities = utility.read_vertices(filename,num_cities)
-print cities
+print "read vertices into 2D Matrix: "+str(cities)
 
 all_distances = utility.compute_all_distances(cities)
 print "all_distances: "+str(all_distances) #this example was small enough to print

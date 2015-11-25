@@ -32,7 +32,6 @@ def create_adjacency_list(distance_matrix):
 def compute_all_distances(cities):
     all_distances = []
     num_cities = len(cities)
-    print "len = " + str(len(cities))
     x=0
     y=0
     dist = 0
@@ -83,7 +82,7 @@ def read_vertices(filename,num_cities):
         x = int(coordinates[1])
         y = int(coordinates[2])
         city_row = [i, x, y]
-        print city_row
+        #print city_row
         cities.append(city_row)
         line = f.readline()
         i=i+1
