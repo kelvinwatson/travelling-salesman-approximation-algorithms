@@ -90,6 +90,6 @@ def read_vertices(filename,num_cities):
     f.close()
     return cities
 
-
-
-#TESTS
+def write_to_txt(cost_and_path):
+    cost = cost_and_path[0]
+    path = cost_and_path[1]
