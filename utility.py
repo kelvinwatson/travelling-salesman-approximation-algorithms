@@ -5,7 +5,7 @@ class Vertex:
     id = -1
     adjacent_vertices = [] #list of tuples [(u,distance to u),(v,distance to v)...]
     visited = False
-    predecessor = 0
+    predecessor = None
     def __init__(self, id):
         self.id=id
         self.adjacent_vertices = []
@@ -20,6 +20,7 @@ def create_adjacency_list(distance_matrix):
         v = Vertex(vertexID)
         while distance_matrix[i][0] == vertexID:
             if distance_matrix[i][1] != vertexID:
+                #store as tuple of vertexID,distance this vertex
                 v.adjacent_vertices.append((distance_matrix[i][1],distance_matrix[i][2]))
             i+=1
             if i == len(distance_matrix):
