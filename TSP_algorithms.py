@@ -1,9 +1,6 @@
 import utility
 
 
-def create_adjacency_list():
-
-
 #nearest neighbor (greedy)
 def tsp_nearest_neighbor(distance_matrix, source):
     #mark all vertices as unvisited

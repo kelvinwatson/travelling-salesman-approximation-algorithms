@@ -12,12 +12,15 @@ class Vertex:
 
 def create_adjacency_list(distance_matrix, len):
     i = 0
+    adjacency_list= []
     while (i < len):
         vertex = distance_matrix[i][0]
         v = Vertex()
         while distance_matrix[i][0] == vertex:
             v.adjacent_vertices.append((distance_matrix[i][1],(distance_matrix[i][2])))
             i+=1
+        adjacency_list.append(v)
+    return adjacency_list
 
 #computes distances between all vertices and writes to file
 def compute_all_distances(cities):
