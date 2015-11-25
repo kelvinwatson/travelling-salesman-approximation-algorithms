@@ -19,9 +19,9 @@ def tsp_nearest_neighbor(distance_matrix, source):
 #count number of cities and compute distances between all cities
 filename = "tsp_example_1.txt"
 num_cities = utility.count_cities(filename)
-print "number of cities in " + filename + "=" + str(num_cities)
+#print "number of cities in " + filename + "=" + str(num_cities)
 cities = utility.read_vertices(filename,num_cities)
-print cities
+#print cities
 all_distances = utility.compute_all_distances(cities)
 
 #TESTING A SMALL EXAMPLE
@@ -33,8 +33,10 @@ cities = utility.read_vertices(filename,num_cities)
 print cities
 
 all_distances = utility.compute_all_distances(cities)
-print all_distances #this example was small enough to print
+print "all_distances: "+str(all_distances) #this example was small enough to print
 
 adjacency_list = utility.create_adjacency_list(all_distances)
-print adjacency_list
 #tsp_nearest_neighbor(adjacency_list,0)
+print "adjacency_list: "
+for vert in adjacency_list:
+    print vert.adjacent_vertices

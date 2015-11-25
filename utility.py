@@ -2,30 +2,30 @@
 import re, math, csv, os
 
 class Vertex:
+    id = -1
     adjacent_vertices = [] #list of tuples [(u,distance to u),(v,distance to v)...]
     visited = False
     predecessor = 0
-    def __init__(self):
+    def __init__(self, id):
+        self.id=id
         self.adjacent_vertices = []
         self.visited = False
         predecessor = 0
 
 def create_adjacency_list(distance_matrix):
-    print "len="+str(len(distance_matrix))
-    print distance_matrix
     i = 0
     adjacency_list= []
     while (i < len(distance_matrix)):
-        vertex = distance_matrix[i][0]
-        print str(vertex)+" i="+str(i)
-        v = Vertex()
-        while distance_matrix[i][0] == vertex:
-            print " "+str(distance_matrix[i][1])
-            print " "+str(distance_matrix[i][2])
-            v.adjacent_vertices.append((distance_matrix[i][1],(distance_matrix[i][2])))
+        vertexID = distance_matrix[i][0]
+        v = Vertex(vertexID)
+        while distance_matrix[i][0] == vertexID:
+            if distance_matrix[i][1] != vertexID:
+                v.adjacent_vertices.append((distance_matrix[i][1],distance_matrix[i][2]))
             i+=1
+            if i == len(distance_matrix):
+                break
         adjacency_list.append(v)
-    print adjacency_list
+
     return adjacency_list
 
 #computes distances between all vertices and writes to file
