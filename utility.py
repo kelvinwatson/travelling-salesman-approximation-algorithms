@@ -10,16 +10,22 @@ class Vertex:
         self.visited = False
         predecessor = 0
 
-def create_adjacency_list(distance_matrix, len):
+def create_adjacency_list(distance_matrix):
+    print "len="+str(len(distance_matrix))
+    print distance_matrix
     i = 0
     adjacency_list= []
-    while (i < len):
+    while (i < len(distance_matrix)):
         vertex = distance_matrix[i][0]
+        print str(vertex)+" i="+str(i)
         v = Vertex()
         while distance_matrix[i][0] == vertex:
+            print " "+str(distance_matrix[i][1])
+            print " "+str(distance_matrix[i][2])
             v.adjacent_vertices.append((distance_matrix[i][1],(distance_matrix[i][2])))
             i+=1
         adjacency_list.append(v)
+    print adjacency_list
     return adjacency_list
 
 #computes distances between all vertices and writes to file

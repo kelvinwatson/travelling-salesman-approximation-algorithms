@@ -12,7 +12,7 @@ def tsp_nearest_neighbor(distance_matrix, source):
                 single_vertex_data.append(all_distances[i])
         find_min_destination(source)
 
-def find_min_destination(u):
+#def find_min_destination(u):
     #use binary search to find shortest distance
 
 
@@ -28,8 +28,13 @@ all_distances = utility.compute_all_distances(cities)
 filename = "tsp_example_4.txt"
 num_cities = utility.count_cities(filename)
 print "number of cities in " + filename + "=" + str(num_cities)
+
 cities = utility.read_vertices(filename,num_cities)
 print cities
+
 all_distances = utility.compute_all_distances(cities)
 print all_distances #this example was small enough to print
-tsp_nearest_neighbor(all_distances,0)
+
+adjacency_list = utility.create_adjacency_list(all_distances)
+print adjacency_list
+#tsp_nearest_neighbor(adjacency_list,0)
