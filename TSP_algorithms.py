@@ -6,7 +6,7 @@ def tsp_nearest_neighbor(adj_list, source_vertex):
     #track visited and unvisited vertices
     track_visited_vertices = []
     path = []
-    path_length = 0
+    path_cost = 0
     i = 0
     while i < len(adj_list):
         track_visited_vertices.append(False)
@@ -17,28 +17,23 @@ def tsp_nearest_neighbor(adj_list, source_vertex):
     track_visited_vertices[source_vertex] = adj_list[source_vertex].visited = True
     path.append(source_vertex)
 
-    print path
-    print track_visited_vertices
-
     current_vertex = source_vertex
     while all_visited_flag is False:
-
-        print "TRACE: "+str(adj_list[current_vertex].adjacent_vertices)
-        print all_visited_flag
+        #nearest neighbor is a tuple of (vertexID,distance)
+        #which can be accessed like a list using square brackets nn[0]==vertexID, nn[1]==distance
         nearest_neighbor = find_min_destination(adj_list[current_vertex].adjacent_vertices, adj_list) #find nearest neighbor
-        print "nn="+str(nearest_neighbor[0])+","+str(nearest_neighbor[1])
         path.append(nearest_neighbor[0])
-        print "path="+str(path)
+        path_cost += nearest_neighbor[1]
+        #print "nn="+str(nearest_neighbor[0])+","+str(nearest_neighbor[1])
+        #print "path_cost="+str(path_cost)
         current_vertex = nearest_neighbor[0] #current vertex is now the nearest identified neighbor
         track_visited_vertices[nearest_neighbor[0]] = adj_list[nearest_neighbor[0]].visited = True #mark the neighbor as visited
         adj_list[nearest_neighbor[0]].predecessor = current_vertex
-        print track_visited_vertices
-        print all_visited_flag
-
         all_visited_flag = check_if_all_visited(track_visited_vertices)
-    #add distance from current vertex to source
-    print adj_list[current_vertex]
-    print "done"
+    #add path from last vertex to source
+    cost = adj_list[current_vertex].adjacent_vertices[source_vertex][1]
+    path_cost += cost
+    path.append(adj_list[current_vertex].adjacent_vertices[source_vertex][0])
     return path
 
 def check_if_all_visited(track):
