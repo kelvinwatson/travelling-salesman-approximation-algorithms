@@ -35,13 +35,17 @@ else:
 
     adjacency_list = utility.create_adjacency_list(all_distances)
 
-    print "adjacency_list: "
+    #print "adjacency_list: "
 
     for i,vert in enumerate(adjacency_list):
-        print "vertex " + str(i)+"->"+str(vert.adjacent_vertices[0]) + " " + str(vert.adjacent_vertices[1])
+        print "vertex " + str(i)+"->",
+        for v in vert.adjacent_vertices:
+            print v,
+        print "\n"
 
     total_cost_and_path = algorithm.tsp_nearest_neighbor(adjacency_list,0)
     algorithm.tsp_approximation(cities,adjacency_list,0)
+
     filename += ".tour"
     utility.write_to_txt(total_cost_and_path,filename)
     print "TSP approximation complete. Please see "+filename+" for result."

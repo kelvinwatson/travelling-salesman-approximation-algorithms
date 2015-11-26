@@ -13,6 +13,8 @@ class Vertex:
         self.visited = False
         self.predecessor = None
         self.key = float("inf")
+    def __eq__(self, other):
+        return self.id == other.id
 
 def create_adjacency_list(distance_matrix):
     i = 0
