@@ -54,7 +54,6 @@ def find_min_destination(adj_u,adj_list):
 
 #all_distances = sorted(all_distances,key=lambda x: x[2]) #sort edges ASC
 
-
 def prim(vertex_list, adj_list, r):
     #print "PRIM"
     #for i,vert in enumerate(adj_list):
