@@ -35,7 +35,7 @@ def tsp_nearest_neighbor(adj_list, source_vertex):
     #path.append(adj_list[current_vertex].adjacent_vertices[source_vertex][0])
     #print path_cost
     #print path
-    return path_cost,path
+    return int(path_cost),path
 
 def check_if_all_visited(track):
     for x in track:
