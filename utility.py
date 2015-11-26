@@ -6,11 +6,13 @@ class Vertex:
     adjacent_vertices = [] #list of tuples [(u,distance to u),(v,distance to v)...]
     visited = False
     predecessor = None
+    key = float("inf")
     def __init__(self, id):
         self.id=id
         self.adjacent_vertices = []
         self.visited = False
-        predecessor = 0
+        self.predecessor = None
+        self.key = float("inf")
 
 def create_adjacency_list(distance_matrix):
     i = 0
@@ -94,3 +96,9 @@ def write_to_txt(cost_and_path,filename):
         text_file.write(cost+"\n")
         for v in path:
             text_file.write(str(v)+"\n")
+
+def create_list_of_vertices(all_distances):
+    vertex_list = []
+    for x in all_distances:
+        vertex_list.append(Vertex(x[0]))
+    return vertex_list

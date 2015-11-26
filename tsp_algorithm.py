@@ -1,4 +1,5 @@
 import utility
+import heapq as q
 
 #nearest neighbor (greedy)
 def tsp_nearest_neighbor(adj_list, source_vertex):
@@ -50,3 +51,29 @@ def find_min_destination(adj_u,adj_list):
             if v[1]<curr_min[1]: #v[1] accesses the distance in the tuple
                 curr_min=v #v[0] accesses the vertex ID in the tuple
     return curr_min
+
+#all_distances = sorted(all_distances,key=lambda x: x[2]) #sort edges ASC
+
+
+def prim(vertex_list, r):
+    queue = []
+    for v in vertex_list:
+        print str(v.id)+","+str(v.key)+","+str(v.predecessor)
+        if v.id == r: v.key=0 #find the root and set its key to 0
+        q.heappush(queue,(v.key, v))
+    print "printing vertices in heap!"
+    for v in queue: #each v is a tuple, (key,v object)
+        print str(v[0]) +" " +str(v[1].id)+" "+str(v[1].predecessor)
+    while queue:
+        q.heappop(queue) #extract min
+
+def tsp_approximation(cities,r):
+    vertex_list = utility.create_list_of_vertices(cities)
+    print vertex_list
+    prim(vertex_list,r)
+
+    #while queue:
+    #    print q.heappop(queue)
+    return 0
+
+
