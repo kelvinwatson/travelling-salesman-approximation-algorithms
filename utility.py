@@ -14,7 +14,6 @@ class Vertex:
 
 def create_adjacency_list(distance_matrix):
     i = 0
-    print "TRACE: distance_matrix="+str(distance_matrix)
     adjacency_list= []
     while (i < len(distance_matrix)):
         vertexID = distance_matrix[i][0]
@@ -33,7 +32,6 @@ def create_adjacency_list(distance_matrix):
 #computes distances between all vertices and writes to file
 def compute_all_distances(cities):
     all_distances = []
-    print "TRACE: cities="+str(cities)
     num_cities = len(cities)
     x=0
     y=0
@@ -83,7 +81,6 @@ def read_vertices(filename,num_cities):
         x = int(coordinates[1])
         y = int(coordinates[2])
         city_row = [i, x, y]
-        #print city_row
         cities.append(city_row)
         line = f.readline()
         i=i+1
