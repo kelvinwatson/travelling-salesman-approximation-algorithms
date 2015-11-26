@@ -72,22 +72,35 @@ def count_cities(fname):
     return i+1
 
 #saves each vertex/city as a row [vertex num, x coord, y coord] in the cities 2D matrix
-def read_vertices(filename,num_cities):
-    f = open(filename,'r')
-    line = f.readline()
-    #save cities into a 2D matrix
+
+##def read_vertices(filename,num_cities):
+##    f = open(filename,'r')
+##    line = f.readline()
+##    #save cities into a 2D matrix
+##    cities = []
+##    i=0
+##    while len(line) > 1:
+##        coordinates = re.findall(r'[^,;\s]+', line)
+##        x = int(coordinates[1])
+##        y = int(coordinates[2])
+##        city_row = [i, x, y]
+##        cities.append(city_row)
+##        line = f.readline()
+##        i=i+1
+##    f.close()
+##    return cities
+
+#saves each vertex/city as a row [vertex num, x coord, y coord] in the cities 2D matrix
+def read_vertices(filename, num_cities):
     cities = []
-    i=0
-    while len(line) > 1:
-        coordinates = re.findall(r'[^,;\s]+', line)
-        x = int(coordinates[1])
-        y = int(coordinates[2])
-        city_row = [i, x, y]
-        cities.append(city_row)
-        line = f.readline()
-        i=i+1
-    f.close()
-    return cities
+    with open(filename, 'r') as f:
+        for line in f:
+            city = []
+            for num in line.split():
+                city.append(int(num))
+            cities.append(city)
+
+    return cities #returns: [ [v0, x0, y0], ..., [vn, xn, yn] ]
 
 def write_to_txt(cost_and_path,filename):
     cost = str(cost_and_path[0])
