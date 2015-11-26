@@ -58,14 +58,14 @@ def find_min_destination(adj_u,adj_list):
 def prim(vertex_list, adj_list, r):
     print "PRIM"
     for i,vert in enumerate(adj_list):
-        print "vertex " + str(i)+"->",
+        #print "vertex " + str(i)+"->",
         for v in vert.adjacent_vertices:
             print v,
         print "\n"
     queue = []
     mst = []
     for v in vertex_list:     #initialize vertices
-        print str(v.id)+","+str(v.key)+","+str(v.predecessor)
+        #print str(v.id)+","+str(v.key)+","+str(v.predecessor)
         if v.id == r: v.key=0 #find the root and set its key to 0
         q.heappush(queue,(v.key, v))
     #print "printing vertices in heap!"
@@ -74,9 +74,9 @@ def prim(vertex_list, adj_list, r):
     while queue:
         u = q.heappop(queue) #extract min
         mst.append(u[1])
-        print "just popped vertex "+str(u[1].id)+" predecessor="+str(u[1].predecessor)+" dist="+str(u[0]);
+        #print "just popped vertex "+str(u[1].id)+" predecessor="+str(u[1].predecessor)+" dist="+str(u[0]);
         for v in adj_list[u[1].id].adjacent_vertices:
-            print "v = "+str(v)
+            #print "v = "+str(v)
             #check if a vertex with id of v[0] is in queue
             for a in queue:
                 if v[0] == a[1].id: #vertex a with id v[0] is in queue
@@ -90,6 +90,7 @@ def tsp_approximation(cities,adj_list,r):
     vertex_list = utility.create_list_of_vertices(cities)
     print vertex_list
     mst = prim(vertex_list,adj_list,r)
+    print "MST"
     for m in mst:
         print "id="+str(m.id)+" key="+str(m.key)+" predecessor="+str(m.predecessor)
     #preorder walk

@@ -36,12 +36,11 @@ else:
     adjacency_list = utility.create_adjacency_list(all_distances)
 
     #print "adjacency_list: "
-
-    for i,vert in enumerate(adjacency_list):
-        print "vertex " + str(i)+"->",
-        for v in vert.adjacent_vertices:
-            print v,
-        print "\n"
+    # for i,vert in enumerate(adjacency_list):
+    #     print "vertex " + str(i)+"->",
+    #     for v in vert.adjacent_vertices:
+    #         print v,
+    #     print "\n"
 
     total_cost_and_path = algorithm.tsp_nearest_neighbor(adjacency_list,0)
     algorithm.tsp_approximation(cities,adjacency_list,0)
