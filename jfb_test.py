@@ -44,7 +44,6 @@ def compute_all_distances(cities):
             delta_y = cities[j][2] - cities[i][2]
             dist = int(round(math.sqrt(math.pow(delta_x,2) + math.pow(delta_y,2))))
             all_distances.append([i,j,dist])
-    #print all_distances
     return all_distances
 
 matrix = compute_all_distances(cities1)
@@ -67,7 +66,7 @@ def create_adjacency_dict(distance_matrix):
             
         adjacency_dict[vertexID] = v_adjacent
 
-    #print adjacency_dict
+    print adjacency_dict
     return adjacency_dict
 
 def find_min_adjacent(adjacent_dict, visited):
@@ -85,8 +84,7 @@ def find_min_adjacent(adjacent_dict, visited):
 g = create_adjacency_dict(matrix)
 
 
-def nn_tsp(g):
-    starting_vertex = 0 #set this to the starting vertex
+def nn_tsp(g,starting_vertex):
     visited = [starting_vertex]
     U = [g.pop(starting_vertex)]
     V = g
@@ -110,6 +108,6 @@ def nn_tsp(g):
     print cost
         
 
-nn_tsp(g)
+nn_tsp(g,0)
 
 
