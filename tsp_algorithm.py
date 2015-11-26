@@ -56,12 +56,12 @@ def find_min_destination(adj_u,adj_list):
 
 
 def prim(vertex_list, adj_list, r):
-    print "PRIM"
-    for i,vert in enumerate(adj_list):
+    #print "PRIM"
+    #for i,vert in enumerate(adj_list):
         #print "vertex " + str(i)+"->",
-        for v in vert.adjacent_vertices:
-            print v,
-        print "\n"
+        #for v in vert.adjacent_vertices:
+        #    print v,
+        #print "\n"
     queue = []
     mst = []
     for v in vertex_list:     #initialize vertices
@@ -88,7 +88,7 @@ def prim(vertex_list, adj_list, r):
 
 def tsp_approximation(cities,adj_list,r):
     vertex_list = utility.create_list_of_vertices(cities)
-    print vertex_list
+    #print vertex_list
     mst = prim(vertex_list,adj_list,r)
     print "MST"
     for m in mst:
