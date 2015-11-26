@@ -90,6 +90,7 @@ def tsp_approximation(all_distances,cities,adj_list,source):
     vertex_list = utility.create_list_of_vertices(cities)
     #print vertex_list
     mst = prim(vertex_list,adj_list,source)
+    path = []
     print "MST"
     #for m in mst:
     #    print "id="+str(m.id)+" key="+str(m.key)+" predecessor="+str(m.predecessor)
@@ -111,5 +112,8 @@ def tsp_approximation(all_distances,cities,adj_list,source):
         if v1==n[0] and v2==n[1]:
             path_len+=n[2]
     print path_len
-    return path_len,
-
+    mst.append(mst[0])
+    for m in mst:
+        print "id="+str(m.id)+" key="+str(m.key)+" predecessor="+str(m.predecessor)
+        path.append(m.id)
+    return path_len,path
