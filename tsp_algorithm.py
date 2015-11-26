@@ -73,6 +73,7 @@ def prim(vertex_list, adj_list, r):
         print str(v[0]) +" " +str(v[1].id)+" "+str(v[1].predecessor)
     while queue:
         u = q.heappop(queue) #extract min
+        mst.append(u[1])
         print "just popped vertex "+str(u[1].id)+" predecessor="+str(u[1].predecessor)+" dist="+str(u[0]);
         for v in adj_list[u[1].id].adjacent_vertices:
             print "v = "+str(v)
@@ -83,13 +84,14 @@ def prim(vertex_list, adj_list, r):
                         a[1].predecessor=u[1].id
                         a[1].key=v[1]
                         break
-
+    return mst
 
 def tsp_approximation(cities,adj_list,r):
     vertex_list = utility.create_list_of_vertices(cities)
     print vertex_list
-    prim(vertex_list,adj_list,r)
-
+    mst = prim(vertex_list,adj_list,r)
+    for m in mst:
+        print "id="+str(m.id)+" key="+str(m.key)+" predecessor="+str(m.predecessor)
     #while queue:
     #    print q.heappop(queue)
     return 0
