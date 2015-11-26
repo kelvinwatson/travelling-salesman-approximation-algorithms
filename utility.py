@@ -90,6 +90,10 @@ def read_vertices(filename,num_cities):
     f.close()
     return cities
 
-def write_to_txt(cost_and_path):
-    cost = cost_and_path[0]
+def write_to_txt(cost_and_path,filename):
+    cost = str(cost_and_path[0])
     path = cost_and_path[1]
+    with open(filename,"w") as text_file:
+        text_file.write(cost+"\n")
+        for v in path:
+            text_file.write(str(v)+"\n")

@@ -32,7 +32,7 @@ def tsp_nearest_neighbor(adj_list, source_vertex):
     #add path from last vertex to source
     cost = adj_list[current_vertex].adjacent_vertices[source_vertex][1]
     path_cost += cost
-    path.append(adj_list[current_vertex].adjacent_vertices[source_vertex][0])
+    #path.append(adj_list[current_vertex].adjacent_vertices[source_vertex][0])
     #print path_cost
     #print path
     return path_cost,path
@@ -78,4 +78,5 @@ for vert in adjacency_list:
 
 total_cost_and_path = tsp_nearest_neighbor(adjacency_list,0)
 
-write_to_txt(total_cost_and_path)
+filename += ".tour"
+utility.write_to_txt(total_cost_and_path,filename)
