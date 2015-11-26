@@ -96,7 +96,7 @@ def count_cities(fname):
 
 def read_vertices(filename, num_cities=0):
     """ saves each vertex/city as a row [vertex num, x coord, y coord] in the cities 2D matrix
-        returns: [ [v0, x0, y0], ..., [vn, xn, yn] ] """"
+        returns: [ [v0, x0, y0], ..., [vn, xn, yn] ] """
     cities = []
     with open(filename, 'r') as f:
         for line in f:
