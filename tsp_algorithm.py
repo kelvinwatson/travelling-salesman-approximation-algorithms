@@ -68,9 +68,9 @@ def prim(vertex_list, adj_list, r):
         print str(v.id)+","+str(v.key)+","+str(v.predecessor)
         if v.id == r: v.key=0 #find the root and set its key to 0
         q.heappush(queue,(v.key, v))
-    print "printing vertices in heap!"
-    for v in queue: #each v is a tuple, (key,v object)
-        print str(v[0]) +" " +str(v[1].id)+" "+str(v[1].predecessor)
+    #print "printing vertices in heap!"
+    #for v in queue: #each v is a tuple, (key,v object)
+    #    print str(v[0]) +" " +str(v[1].id)+" "+str(v[1].predecessor)
     while queue:
         u = q.heappop(queue) #extract min
         mst.append(u[1])
@@ -92,8 +92,8 @@ def tsp_approximation(cities,adj_list,r):
     mst = prim(vertex_list,adj_list,r)
     for m in mst:
         print "id="+str(m.id)+" key="+str(m.key)+" predecessor="+str(m.predecessor)
-    #while queue:
-    #    print q.heappop(queue)
+    #preorder walk
+
     return 0
 
 
