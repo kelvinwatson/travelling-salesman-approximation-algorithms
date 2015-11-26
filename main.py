@@ -27,7 +27,7 @@ else:
     num_cities = utility.count_cities(filename)
     #print "number of cities(vertices) in " + filename + "=" + str(num_cities)
 
-    cities = utility.read_vertices(filename,num_cities)
+    cities = utility.read_vertices(filename)
     print "read vertices into 2D Matrix: "+str(cities)
 
     all_distances = utility.compute_all_distances(cities)
