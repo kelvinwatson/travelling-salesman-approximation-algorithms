@@ -33,12 +33,32 @@ def create_adjacency_list(distance_matrix):
 
     return adjacency_list
 
+
+def create_adjacency_dict(distance_matrix):
+    i = 0
+    adjacency_dict =  {}
+    
+    while (i < len(distance_matrix)):
+        vertexID = distance_matrix[i][0]
+        v_adjacent = {}
+        while distance_matrix[i][0] == vertexID:
+            if distance_matrix[i][1] != vertexID:
+                v_adjacent[distance_matrix[i][1]] = distance_matrix[i][2]
+            i+=1
+            
+            if i == len(distance_matrix):
+                break
+            
+        adjacency_dict[vertexID] = v_adjacent
+
+    print adjacency_dict
+    return adjacency_dict
+
+
 #computes distances between all vertices and writes to file
 def compute_all_distances(cities):
     all_distances = []
     num_cities = len(cities)
-    x=0
-    y=0
     dist = 0
     for i in range(num_cities):
         for j in range(num_cities):
@@ -73,27 +93,10 @@ def count_cities(fname):
             pass
     return i+1
 
-#saves each vertex/city as a row [vertex num, x coord, y coord] in the cities 2D matrix
 
-##def read_vertices(filename,num_cities):
-##    f = open(filename,'r')
-##    line = f.readline()
-##    #save cities into a 2D matrix
-##    cities = []
-##    i=0
-##    while len(line) > 1:
-##        coordinates = re.findall(r'[^,;\s]+', line)
-##        x = int(coordinates[1])
-##        y = int(coordinates[2])
-##        city_row = [i, x, y]
-##        cities.append(city_row)
-##        line = f.readline()
-##        i=i+1
-##    f.close()
-##    return cities
-
-#saves each vertex/city as a row [vertex num, x coord, y coord] in the cities 2D matrix
-def read_vertices(filename, num_cities):
+def read_vertices(filename, num_cities=0):
+    """ saves each vertex/city as a row [vertex num, x coord, y coord] in the cities 2D matrix
+        returns: [ [v0, x0, y0], ..., [vn, xn, yn] ] """"
     cities = []
     with open(filename, 'r') as f:
         for line in f:
@@ -102,7 +105,7 @@ def read_vertices(filename, num_cities):
                 city.append(int(num))
             cities.append(city)
 
-    return cities #returns: [ [v0, x0, y0], ..., [vn, xn, yn] ]
+    return cities
 
 def write_to_txt(cost_and_path,filename):
     cost = str(cost_and_path[0])
