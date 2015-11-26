@@ -86,15 +86,30 @@ def prim(vertex_list, adj_list, r):
                         break
     return mst
 
-def tsp_approximation(cities,adj_list,r):
+def tsp_approximation(all_distances,cities,adj_list,source):
     vertex_list = utility.create_list_of_vertices(cities)
     #print vertex_list
-    mst = prim(vertex_list,adj_list,r)
+    mst = prim(vertex_list,adj_list,source)
     print "MST"
-    for m in mst:
-        print "id="+str(m.id)+" key="+str(m.key)+" predecessor="+str(m.predecessor)
+    #for m in mst:
+    #    print "id="+str(m.id)+" key="+str(m.key)+" predecessor="+str(m.predecessor)
+
     #preorder walk
-
-    return 0
-
+    path_len=0
+    for i,m in enumerate(mst):
+        if i < len(mst)-1:
+            v1=mst[i].id
+            v2=mst[i+1].id
+            #search thru list of edges for matching src and dest
+            for n in all_distances:
+                if v1==n[0] and v2==n[1]:
+                    path_len+=n[2]
+    #add path from last vertex to src
+    v1=mst[len(mst)-1].id
+    v2=source
+    for n in all_distances:
+        if v1==n[0] and v2==n[1]:
+            path_len+=n[2]
+    print path_len
+    return path_len,
 

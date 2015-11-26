@@ -43,7 +43,7 @@ else:
     #     print "\n"
 
     total_cost_and_path = algorithm.tsp_nearest_neighbor(adjacency_list,0)
-    algorithm.tsp_approximation(cities,adjacency_list,0)
+    algorithm.tsp_approximation(all_distances,cities,adjacency_list,0)
 
     filename += ".tour"
     utility.write_to_txt(total_cost_and_path,filename)
