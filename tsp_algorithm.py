@@ -55,7 +55,7 @@ def find_min_destination(adj_u,adj_list):
 #all_distances = sorted(all_distances,key=lambda x: x[2]) #sort edges ASC
 
 
-def prim(vertex_list, r):
+def prim(vertex_list, adj_list, r):
     queue = []
     for v in vertex_list:
         print str(v.id)+","+str(v.key)+","+str(v.predecessor)
@@ -65,12 +65,13 @@ def prim(vertex_list, r):
     for v in queue: #each v is a tuple, (key,v object)
         print str(v[0]) +" " +str(v[1].id)+" "+str(v[1].predecessor)
     while queue:
-        q.heappop(queue) #extract min
+        u = q.heappop(queue) #extract min
+        #for v in adj_list[u.id]:
 
-def tsp_approximation(cities,r):
+def tsp_approximation(cities,adj_list,r):
     vertex_list = utility.create_list_of_vertices(cities)
     print vertex_list
-    prim(vertex_list,r)
+    prim(vertex_list,adj_list,r)
 
     #while queue:
     #    print q.heappop(queue)
