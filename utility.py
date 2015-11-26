@@ -40,7 +40,7 @@ def compute_all_distances(cities):
         for j in range(num_cities):
             delta_x = cities[j][1] - cities[i][1]
             delta_y = cities[j][2] - cities[i][2]
-            dist = math.sqrt(math.pow(delta_x,2) + math.pow(delta_y,2))
+            dist = int(round(math.sqrt(math.pow(delta_x,2) + math.pow(delta_y,2))))
             all_distances.append([i,j,dist])
     write_distances_to_csv("allDistances.csv", all_distances)
     return all_distances
