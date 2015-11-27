@@ -72,7 +72,7 @@ def find_min_adjacent(adjacent_dict, visited):
 g = create_adjacency_dict(matrix)
 
 
-def nn_tsp(g):
+def nn_tsp(g,starting_vertex):
     starting_vertex = 0 #set this to the starting vertex
     visited = [starting_vertex]
     U = [g.pop(starting_vertex)]
@@ -97,4 +97,4 @@ def nn_tsp(g):
     print cost
         
 
-nn_tsp(g)
+nn_tsp(g,0)
