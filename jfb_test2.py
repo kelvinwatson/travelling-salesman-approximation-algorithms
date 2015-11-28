@@ -32,6 +32,19 @@ def find_min_adjacent(adjacent_dict, visited):
             return (int(vertex), int (distance))
     return (-1, -1)
 
+def distance(cities, a, b):
+    dx = cities[a][0] - cities[b][0]
+    dy = cities[a][1] - cities[b][1]
+    dist = int(round(math.sqrt(dx*dx + dy*dy)))
+    return dist
+
+def calculate_route_distance(cities, route):
+    total_distance = 0
+    for i in range(len(route) - 1):
+        total_distance += distance(cities, route[i], route[i+1])
+    total_distance += distance(cities, route[0], route[-1])
+    return total_distance
+
 def nn_tsp(cities, starting_vertex):
     starting_vertex = 0 #set this to the starting vertex
     visited = [starting_vertex]
@@ -56,20 +69,8 @@ def nn_tsp(cities, starting_vertex):
             if num_visited > 2:
                 del cities[second_last_node]
             num_visited += 1
-    #do we need to calculate from last node to start node and add to cost? (to finish the tour?)
+    cost = cost + distance(cities, visited[0], visited[-1])
     return visited, cost
-
-def distance(cities, x, y):
-    delta_x = cities[x][0] - cities[y][0]
-    delta_y = cities[x][1] - cities[y][1]
-    dist = int(round(math.sqrt(math.pow(delta_x,2) + math.pow(delta_y,2))))
-    return dist
-
-def calculate_route_distance(cities, route):
-    total_distance = 0
-    for i in range(len(route) - 1):
-        total_distance += distance(cities, route[i], route[i+1])
-    return total_distance
 
 #referenced http://codereview.stackexchange.com/questions/72265/2-opt-algorithm-for-traveling-salesman for route
 def two_opt_switch(route, i, j):
@@ -87,6 +88,7 @@ def two_opt(cities, best_route, best_distance):
     change_flag = True
     while change_flag:
         change_flag = False
+        print best_distance
         for i in range(route_len - 1):
             for j in range(i + 1, route_len):
                 new_route = two_opt_switch(best_route, i, j)
@@ -95,7 +97,6 @@ def two_opt(cities, best_route, best_distance):
                     best_distance = new_distance
                     best_route = new_route
                     change_flag = True
-        print best_distance
     return best_route, best_distance
 
 def write_to_txt(cost, path, filename):
@@ -104,27 +105,30 @@ def write_to_txt(cost, path, filename):
         for v in path:
             text_file.write(str(v)+"\n")
 
-filename = 'tsp_example_1.txt'
+
+
+###code calls
+filename = 'tsp_example_2.txt'
 cities1 = read_vertices(filename)
 start = time.clock()
 visited, cost = nn_tsp(cities1, 0)
-total_time = time.clock() - start
-print visited
-print cost
-print total_time
+
 #re-set the cities1 dict
 cities1 = read_vertices(filename)
-
 #2-opt takes a long time to run, n^3
 #there are shortcuts to improve but I couldn't implement them properly
 print "Running 2-opt"
 opt_route, opt_distance = two_opt(cities1, visited, cost)
+total_time = time.clock() - start
+
+#write results to file
 filename = filename + '.tour'
 write_to_txt(opt_distance, opt_route, filename)
 print visited
 print cost
 print opt_route
 print opt_distance
+print total_time
 
 
 
