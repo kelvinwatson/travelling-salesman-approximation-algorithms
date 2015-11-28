@@ -88,7 +88,7 @@ def two_opt(cities, best_route, best_distance, unlimited=True):
     if unlimited:
         outer_range = route_len - 2
     else:
-        outer_range = 1
+        outer_range = 100
     #to emulate a do while loop
     change_flag = True
     while change_flag:
@@ -113,7 +113,7 @@ def write_to_txt(cost, path, filename):
 
 
 ###code calls
-filename = 'tsp_example_2.txt'
+filename = 'tsp_example_1.txt'
 cities1 = read_vertices(filename)
 start = time.clock()
 visited, cost = nn_tsp(cities1, 0)
