@@ -69,15 +69,16 @@ def nn_tsp(cities, starting_vertex):
             if num_visited > 2:
                 del cities[second_last_node]
             num_visited += 1
+            #print num_visited
     cost = cost + distance(cities, visited[0], visited[-1])
     return visited, cost
 
 #referenced http://codereview.stackexchange.com/questions/72265/2-opt-algorithm-for-traveling-salesman for route
 def two_opt_switch(route, i, j):
-    start = route[0:i]
-    middle = route[i:j]
+    start = route[0:i+1]
+    middle = route[i+1:j+1]
     middle = middle[::-1]
-    end = route[j:]
+    end = route[j+1:]
     new_route = start + middle + end
     return new_route
 
@@ -85,7 +86,7 @@ def two_opt_switch(route, i, j):
 def two_opt(cities, best_route, best_distance, unlimited=True):
     route_len = len(best_route)
     if unlimited:
-        outer_range = route_len - 1
+        outer_range = route_len - 2
     else:
         outer_range = 1
     #to emulate a do while loop
@@ -93,12 +94,13 @@ def two_opt(cities, best_route, best_distance, unlimited=True):
     while change_flag:
         change_flag = False
         for i in range(outer_range):
-            for j in range(i + 1, route_len):
-                new_route = two_opt_switch(best_route, i, j)
-                new_distance = calculate_route_distance(cities, new_route)
-                if(new_distance < best_distance):
-                    best_distance = new_distance
-                    best_route = new_route
+            for j in range(i + 2, route_len - 1):
+                #print i, j
+                org_edge = distance(cities1, best_route[i], best_route[i + 1]) + distance(cities1, best_route[j], best_route[j+1])
+                new_edge = distance(cities1, best_route[i+1], best_route[j+1]) + distance(cities1, best_route[i], best_route[j])
+                if( new_edge < org_edge):
+                    best_distance -= (org_edge - new_edge)
+                    best_route = two_opt_switch(best_route, i, j)
                     if unlimited:
                         change_flag = True
     return best_route, best_distance
@@ -111,7 +113,7 @@ def write_to_txt(cost, path, filename):
 
 
 ###code calls
-filename = 'tsp_example_1.txt'
+filename = 'tsp_example_2.txt'
 cities1 = read_vertices(filename)
 start = time.clock()
 visited, cost = nn_tsp(cities1, 0)
