@@ -82,13 +82,12 @@ def two_opt_switch(route, i, j):
     return new_route
 
 #give the function the dict of cities and their coordinates, and the current best route
-def two_opt(cities, best_route, best_distance):
+def two_opt(cities, best_route, best_distance, unlimited=True):
     route_len = len(best_route)
     #to emulate a do while loop
     change_flag = True
     while change_flag:
         change_flag = False
-        print best_distance
         for i in range(route_len - 1):
             for j in range(i + 1, route_len):
                 new_route = two_opt_switch(best_route, i, j)
@@ -96,7 +95,8 @@ def two_opt(cities, best_route, best_distance):
                 if(new_distance < best_distance):
                     best_distance = new_distance
                     best_route = new_route
-                    change_flag = True
+                    if unlimited:
+                        change_flag = True
     return best_route, best_distance
 
 def write_to_txt(cost, path, filename):
@@ -106,9 +106,8 @@ def write_to_txt(cost, path, filename):
             text_file.write(str(v)+"\n")
 
 
-
 ###code calls
-filename = 'tsp_example_2.txt'
+filename = 'tsp_example_1.txt'
 cities1 = read_vertices(filename)
 start = time.clock()
 visited, cost = nn_tsp(cities1, 0)
@@ -117,10 +116,15 @@ visited, cost = nn_tsp(cities1, 0)
 cities1 = read_vertices(filename)
 #2-opt takes a long time to run, n^3
 #there are shortcuts to improve but I couldn't implement them properly
-print "Running 2-opt"
-opt_route, opt_distance = two_opt(cities1, visited, cost)
-total_time = time.clock() - start
+if len(cities1) < 3000:
+    print "Running 2-opt"
+    opt_route, opt_distance = two_opt(cities1, visited, cost)
+else:
+    print "Running 2-opt limited"
+    opt_route, opt_distance = two_opt(cities1, visited, cost, False)
 
+
+total_time = time.clock() - start
 #write results to file
 filename = filename + '.tour'
 write_to_txt(opt_distance, opt_route, filename)
