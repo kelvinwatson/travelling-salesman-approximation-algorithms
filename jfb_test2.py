@@ -1,5 +1,5 @@
 #utility functions
-import re, math, csv, os
+import re, math, csv, os, time
 
 #saves each vertex/city as a row [vertex num, x coord, y coord] in the cities 2D matrix
 def read_vertices(filename, num_citities=0):
@@ -76,4 +76,7 @@ def nn_tsp(cities, starting_vertex):
     print visited
     print cost
 
+start = time.clock()
 nn_tsp(cities1, 0)
+total_time = time.clock() - start
+print total_time
