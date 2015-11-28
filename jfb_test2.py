@@ -84,11 +84,15 @@ def two_opt_switch(route, i, j):
 #give the function the dict of cities and their coordinates, and the current best route
 def two_opt(cities, best_route, best_distance, unlimited=True):
     route_len = len(best_route)
+    if unlimited:
+        outer_range = route_len - 1
+    else:
+        outer_range = 1
     #to emulate a do while loop
     change_flag = True
     while change_flag:
         change_flag = False
-        for i in range(route_len - 1):
+        for i in range(outer_range):
             for j in range(i + 1, route_len):
                 new_route = two_opt_switch(best_route, i, j)
                 new_distance = calculate_route_distance(cities, new_route)
