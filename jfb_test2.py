@@ -46,7 +46,6 @@ def calculate_route_distance(cities, route):
     return total_distance
 
 def nn_tsp(cities, starting_vertex):
-    print cities
     visited = [starting_vertex]
     num_cities = len(cities)
     cost = 0
