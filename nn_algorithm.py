@@ -111,33 +111,33 @@ def write_to_txt(cost, path, filename):
             text_file.write(str(v)+"\n")
 
 
-###code calls
-filename = 'tsp_example_1.txt'
-cities1 = read_vertices(filename)
-start = time.clock()
-visited, cost = nn_tsp(cities1, 0)
-
-#re-set the cities1 dict
-cities1 = read_vertices(filename)
-#2-opt takes a long time to run, n^3
-#there are shortcuts to improve but I couldn't implement them properly
-if len(cities1) < 3000:
-    print "Running 2-opt"
-    opt_route, opt_distance = two_opt(cities1, visited, cost)
-else:
-    print "Running 2-opt limited"
-    opt_route, opt_distance = two_opt(cities1, visited, cost, False)
-
-
-total_time = time.clock() - start
-#write results to file
-filename = filename + '.tour'
-write_to_txt(opt_distance, opt_route, filename)
-print visited
-print cost
-print opt_route
-print opt_distance
-print total_time
+# ###code calls
+# filename = 'tsp_example_1.txt'
+# cities1 = read_vertices(filename)
+# start = time.clock()
+# visited, cost = nn_tsp(cities1, 0)
+#
+# #re-set the cities1 dict
+# cities1 = read_vertices(filename)
+# #2-opt takes a long time to run, n^3
+# #there are shortcuts to improve but I couldn't implement them properly
+# if len(cities1) < 3000:
+#     print "Running 2-opt"
+#     opt_route, opt_distance = two_opt(cities1, visited, cost)
+# else:
+#     print "Running 2-opt limited"
+#     opt_route, opt_distance = two_opt(cities1, visited, cost, False)
+#
+#
+# total_time = time.clock() - start
+# #write results to file
+# filename = filename + '.tour'
+# write_to_txt(opt_distance, opt_route, filename)
+# print visited
+# print cost
+# print opt_route
+# print opt_distance
+# print total_time
 
 
 

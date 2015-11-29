@@ -10,9 +10,9 @@
 # ==============================================================================
 
 import sys
-import os.path
 import utility
-import tsp_algorithm as algorithm
+import nn_algorithm as algorithm
+import csv, math, os, re, sys, time
 
 if len(sys.argv) != 2:
     print "--ERROR: Incorrect number of arguments--"
@@ -24,30 +24,35 @@ elif os.path.isfile(sys.argv[1]) is False:
     print "  Please try again."
 else:
     filename = sys.argv[1]
-    num_cities = utility.count_cities(filename)
-    #print "number of cities(vertices) in " + filename + "=" + str(num_cities)
 
-    cities = utility.read_vertices(filename)
-    print "read vertices into 2D Matrix: "+str(cities)
+    cities1 = algorithm.read_vertices(filename)
+    start = time.clock()
+    visited, cost = algorithm.nn_tsp(cities1, 0)
 
-    all_distances = utility.compute_all_distances(cities)
-    print "all_distances: "+str(all_distances) #this example was small enough to print
+    #re-set the cities1 dict
+    cities1 = algorithm.read_vertices(filename)
+    #2-opt takes a long time to run, n^3
+    #there are shortcuts to improve but I couldn't implement them properly
+    if len(cities1) < 3000:
+        print "Running 2-opt... ",
+        opt_route, opt_distance = algorithm.two_opt(cities1, visited, cost)
+    else:
+        print "Running 2-opt limited... ",
+        opt_route, opt_distance = algorithm.two_opt(cities1, visited, cost, False)
+    print "2-opt complete\n"
 
-    adjacency_list = utility.create_adjacency_list(all_distances)
 
-    #print "adjacency_list: "
-    # for i,vert in enumerate(adjacency_list):
-    #     print "vertex " + str(i)+"->",
-    #     for v in vert.adjacent_vertices:
-    #         print v,
-    #     print "\n"
+    total_time = time.clock() - start
+    #write results to file
+    filename = filename + '.tour'
+    algorithm.write_to_txt(opt_distance, opt_route, filename)
+    print "==Nearest Neighbor TS Results=="
+    print "Visited vertices: "+str(visited)
+    print "Distance: "+str(cost)
 
-    total_cost_and_path = algorithm.tsp_nearest_neighbor(adjacency_list,0)
-    algorithm.tsp_approximation(all_distances,cities,adjacency_list,0)
+    print "\n==Results After 2-Optimization=="
+    print "Visited vertices: "+str(opt_route)
+    print "Distance: "+str(opt_distance)
+    print "Running Time: "+str(total_time)
 
-    #To run MST algorithm, use:
-    #total_cost_and_path = tsp_approximation(all_distances,cities,adjacency_list,0)
-
-    filename += ".tour"
-    utility.write_to_txt(total_cost_and_path,filename)
     print "TSP approximation complete. Please see "+filename+" for result."
