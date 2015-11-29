@@ -46,6 +46,7 @@ def calculate_route_distance(cities, route):
     return total_distance
 
 def nn_tsp(cities, starting_vertex):
+    print cities
     visited = [starting_vertex]
     num_cities = len(cities)
     cost = 0
@@ -95,8 +96,8 @@ def two_opt(cities, best_route, best_distance, unlimited=True):
         for i in range(outer_range):
             for j in range(i + 2, route_len - 1):
                 #print i, j
-                org_edge = distance(cities1, best_route[i], best_route[i + 1]) + distance(cities1, best_route[j], best_route[j+1])
-                new_edge = distance(cities1, best_route[i+1], best_route[j+1]) + distance(cities1, best_route[i], best_route[j])
+                org_edge = distance(cities, best_route[i], best_route[i + 1]) + distance(cities, best_route[j], best_route[j+1])
+                new_edge = distance(cities, best_route[i+1], best_route[j+1]) + distance(cities, best_route[i], best_route[j])
                 if( new_edge < org_edge):
                     best_distance -= (org_edge - new_edge)
                     best_route = two_opt_switch(best_route, i, j)
