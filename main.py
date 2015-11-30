@@ -33,7 +33,7 @@ else:
     cities1 = algorithm.read_vertices(filename)
     #2-opt takes a long time to run, n^3
     #there are shortcuts to improve but I couldn't implement them properly
-    if len(cities1) < 3000:
+    if len(cities1) < 6000:
         print "Running 2-opt... ",
         opt_route, opt_distance = algorithm.two_opt(cities1, visited, cost)
     else:
