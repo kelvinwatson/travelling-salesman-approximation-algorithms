@@ -87,7 +87,10 @@ def two_opt(cities, best_route, best_distance, unlimited=True):
     if unlimited:
         outer_range = route_len - 2
     else:
-        outer_range = 5000
+        if len(cities) <= 5001:
+            outer_range = route_len - 2
+        else:
+            outer_range = 5000
     #to emulate a do while loop
     change_flag = True
     while change_flag:
