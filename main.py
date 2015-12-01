@@ -9,8 +9,6 @@
 # python_version :2.6.6
 # ==============================================================================
 
-import sys
-import utility
 import nn_algorithm as algorithm
 import csv, math, os, re, sys, time
 
